@@ -17,11 +17,14 @@
     <!-- 2. Forms and labels -->
 
     <form action="https://www.udemy.com/" method="get">
+      <!-- Use of Label -->
       <label>
         Enter Text
         <input type="text" name="Avnish" value="">
         <input type="submit" name="" value="Submit">
       </label>
+
+      <!-- Use of Label For in HTML-->
 
       <label for="avnish">AKS</label>
       <input id="avnish" type="text" name="" value="">
@@ -31,10 +34,37 @@
 
     </form>
     <form>
+      <!-- Required and Not Required Validation -->
       <input type="text" name="Value1" placeholder="not required">
       <input type="text" name="Value2" placeholder="Required" required>
       <input type="submit" name="" value="Clicke Me">
-        
+
     </form>
+
+
+    <!-- Forms and Selections in HTML -->
+    <h1>Hotel FeedBack Form</h1>
+
+    <form>
+      <h2>Nationality of the Citizen ?</h2>
+      <label for="inIND">Inside India</label>
+      <input id="inIND" type="radio" name="loc" value="IN_INDIA">
+
+      <label for="outIND">Outside India</label>
+      <input id="outIND" type="radio" name="loc" value="OUT_INDIA">
+
+      <h2>! Rating of the Hotel given by Customers !</h2>
+
+      <select name="star">
+        <option value="Good">1</option>
+        <option value="Average">2</option>
+        <option value="Bad">3</option>
+      </select>
+
+      <h2>! Personal FeedBack Given By Users !</h2>
+      <textarea name="FeedBack" rows="8" cols="80">Here Please Provided FeedBack</textarea>
+      <input type="submit" name="" value="SUBMIT">
+    </form>
+
   </body>
 </html>
