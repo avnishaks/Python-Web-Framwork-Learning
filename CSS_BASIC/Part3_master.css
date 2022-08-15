@@ -1,0 +1,32 @@
+body{
+  background: pink;
+}
+
+h1{
+  text-decoration: overline;
+}
+
+
+.first{
+  text-decoration: none;
+  background: grey;
+}
+
+li a{
+  text-decoration: line-through;
+  color: yellow;
+}
+
+
+.second{
+  color: red;
+}
+
+.second #code{
+  color: blue;
+}
+
+#idselect{
+  color: red;
+  background: blue;
+}
