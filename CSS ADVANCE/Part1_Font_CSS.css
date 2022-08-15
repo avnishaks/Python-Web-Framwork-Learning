@@ -1,0 +1,15 @@
+h1{
+  font-family: sans-serif;
+  font-style: italic;
+  font-display: swap;
+  color: green;
+  text-align: center;
+}
+
+#G_API_fonts{
+  font-family: 'Supermercado One', cursive;
+}
+
+.custom{
+  font-family: monospace;
+}
