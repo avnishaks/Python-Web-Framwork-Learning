@@ -1,0 +1,32 @@
+.specturm{
+    margin: auto;
+}
+
+h1{
+  text-align: center;
+  color: red;
+}
+
+td{
+  background-color: black;
+  height: 400px;
+  width: 100px;
+}
+.aks{
+  color: black;
+}
+#one{
+  background-color: blue;
+}
+
+#two{
+  background-color: red;
+}
+
+#three{
+  background-color: green;
+}
+
+#four{
+  background-color: orange;
+}
