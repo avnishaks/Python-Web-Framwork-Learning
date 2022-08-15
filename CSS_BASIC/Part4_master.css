@@ -1,0 +1,15 @@
+body{
+  background: grey;
+}
+
+li{
+  color: red;
+}
+
+.topiteams{
+  color: blue;
+}
+
+#code{
+  text-decoration: line-through;
+}
