@@ -1,0 +1,20 @@
+body{
+  background: grey;
+}
+
+h1{
+  border-radius:10px;
+  color: blue;
+}
+
+p{
+  text-align: center;
+  text-shadow: 10 px;
+  text-transform: capitalize;
+  text-decoration-color: red;
+}
+
+span{
+  background-color: orange;
+  text-decoration-style: dotted;
+}
