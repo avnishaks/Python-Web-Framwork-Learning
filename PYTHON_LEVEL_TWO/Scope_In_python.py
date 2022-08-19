@@ -78,6 +78,25 @@ def life():
 life()
 
 
+
+
+#GLOBAL Scope - we can use the global key to declare a particular variable as the Global one , even
+# inside the Nested Fuction
+
+demovar="Avnish Kumar Singh"
+
+def demo_var():
+    global  demovar;
+    demovar="Avnish Kumar Singh, CEO of ( Tech and Travel (T&T))"
+
+    return demovar
+
+print("Before Entering in the Corporate Feild ", demovar)
+
+demo_var()
+
+print("After Entering in the Corporate Feild ", demovar)
+
 # Built-in Function in the Python
 # Similar way lots of mathematical, logrithmical , and logical in-built function is present
 # which we can user it for our healthy computational task.
