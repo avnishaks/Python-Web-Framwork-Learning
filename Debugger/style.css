@@ -1,0 +1,62 @@
+
+
+
+body {
+	margin:0px;
+}
+
+.body-header {
+	background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png);
+	height:60vh;
+	background-attachment:fixed;
+	background-size:cover;
+	background-position:center;
+	opacity:0.7;
+}
+
+.horizontal-list{
+	list-style:none;
+	padding:1px;
+}
+
+.center1 {
+	text-align:center;
+}
+
+.horizontal-list li a {
+  color: white;
+text-decoration:none;
+transition: color 0.05s, border-bottom 4s;
+}
+
+.horizontal-list a:hover {
+color:red;
+border-bottom:1px solid white;
+}
+
+.horizontal-list li {
+   display: inline-block;
+   margin: 0px 8px 8px 0px;
+}
+
+#home {
+display:inline-block;
+margin-left:10px;
+margin-top:-10px;
+}
+
+#home a:hover{
+	margin-bottom:1px solid ;
+}
+
+#skills {
+display:inline-block;
+margin-left:10px;
+margin-top:-10px;
+}
+
+#experience {
+display:inline-block;
+margin-left:10px;
+margin-top:-10px;
+}
