@@ -210,8 +210,8 @@ def LogIn():
     # If the User have entered the code by mistaken , then it provide user the option to Retry the Option
         flag=1
         while True:
-            f=int(input("🔂 Press 1 🔂 for Again Try To Login: "))
-            if f==1:
+            flag=int(input("🔂 Press 1 🔂 for Again Try To Login: "))
+            if flag==1:
                 LogIn()
             else:
                 exit()
