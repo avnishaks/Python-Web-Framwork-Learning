@@ -1,5 +1,5 @@
 import mysql.connector
-
+from prettytable import PrettyTable;
 my_database = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -7,17 +7,78 @@ my_database = mysql.connector.connect(
 )
 
 record_process = my_database.cursor()
-
+# my_database creation
 record_process.execute("create database if not exists my_database")
+
+# using of my_database ( DataBase)
 record_process.execute("use my_database")
+
+# Creating of Sign Up Table if earlier not existed !
 record_process.execute("create table if not exists SignUp(username varchar(30),password varchar(30))")
+
+# Creating of Account - Details Table for the Account Holder !
+record_process.execute("create table if not exists account_detail(name varchar(30),account_no varchar(30),address varchar(30),contact_no varchar(30),total_balance int)")
+
+# Creating of Amount Table for the Account Holder !
+record_process.execute("create table if not exists amount(name varchar(30),account_no varchar(30),total_balance int)")
+
 
 # Open Account Function
 def openAccount():
-    return
+    name=input("Enter the Full Name of A/C Holder : ")
+    account_no=input("Enter the A/C Number : ")
+    address=input("Enter the Permanent Address of the A/C Holder : ")
+    contact_no=input("Enter the Contact Number of A/C Holder : ")
+    total_balance=int(input("Enter the Opening Amount For Account ! Please Enter Above 5000 : "))
+
+    while(total_balance<5000):
+        print("\t\t ⚠️You have Entered Amount Less than 5000 ! Please enter > 5000⚠️\t\t")
+        total_balance=int(input("🔂 Amount must be greater than 5000 🔂 : "))
+
+    # Account Details Table Data insertions
+
+    account_holder_query="insert into account_detail(name, account_no, address, contact_no, total_balance) values(%s,%s,%s,%s,%s)"
+    account_holder_data = (name, account_no, address, contact_no, total_balance)
+    record_process.execute(account_holder_query, account_holder_data)
+
+    # Amount Table Data Insertions
+
+    amount_query="insert into amount (name, account_no, total_balance) values(%s,%s,%s)"
+    amount_data = (name, account_no, total_balance)
+    record_process.execute(amount_query,amount_data)
+
+    my_database.commit()
+
+    record_process.execute("select * from account_detail")
+    data =record_process.fetchall()
+    t=PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
+
+    print("🚀 DATA ENTERED ! ACCOUNT OPENED 🚀")
+
+
 # Deposite Amount Function
 def depositeAmount():
-    return
+    name = input("Enter the Full Name of A/C Holder : ")
+    account_no = input("Enter the A/C Number : ")
+    deposite_amount=int(input("Enter the total Amount you want to Deposite"))
+
+    record_process.execute("update account_detail set total_balance=total_balance+"+deposite_amount+'where account_no='+account_no+'')
+    my_database.commit()
+    '''
+      record_process.execute("select total_balance from account_detail where account_no="+str(account_no))
+    data=record_process.fetchall()
+    t=PrettyTable(['total_balance'])
+    for total_balance in data:
+        t.add_row([total_balance])
+    print("Amount Deposited SuccessFully\n")
+    print(t)
+    '''
+    print("Amount Deposited SuccessFully\n")
+
+
 # Withdrwan Amount Function
 def withdrawAmount():
     return
