@@ -19,9 +19,38 @@ record_process.execute("create table if not exists SignUp(username varchar(30),p
 # Creating of Account - Details Table for the Account Holder !
 record_process.execute("create table if not exists account_detail(name varchar(30),account_no varchar(30),address varchar(30),contact_no varchar(30),total_balance varchar(30))")
 
-# Creating of Amount Table for the Account Holder !
-record_process.execute("create table if not exists amount(name varchar(30),account_no varchar(30),total_balance varchar(30))")
+#display PreetyTable
+def displayPreetyTable():
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
 
+
+# Update Contact Number
+def Update_Contact_Number(account_no):
+    contact_no_update = input("Enter the Updated Contact Number of A/C Holder : ")
+    print("🏝️ Before Updating the Contact Number  🏝️")
+    record_process.execute("select * from account_detail where account_no=" + str(account_no))
+    displayPreetyTable()
+    record_process.execute("update account_detail set contact_no=" +contact_no_update+' where account_no = '+str(account_no)+';')
+    my_database.commit()
+    record_process.execute("select * from account_detail where account_no=" + str(account_no))
+    print("🏝️After  Updating the Contact Number  🏝️")
+    displayPreetyTable()
+
+# Update Address
+def Update_Address(account_no):
+    address_update = input("Enter the Updated Permanent Address of the A/C Holder : ")
+    print("🏝️ Before Updating the Address  🏝️")
+    record_process.execute("select * from account_detail where account_no=" + str(account_no))
+    displayPreetyTable()
+    record_process.execute("update account_detail set address=" + address_update + ' where account_no = '+str(account_no)+';')
+    my_database.commit()
+    record_process.execute("select * from account_detail where account_no=" + str(account_no))
+    print("🏝️After  Updating the Address  🏝️")
+    displayPreetyTable()
 
 # Open Account Function
 def openAccount():
@@ -36,26 +65,11 @@ def openAccount():
         total_balance=input("🔂 Amount must be greater than 5000 🔂 : ")
 
     # Account Details Table Data insertions
-
     account_holder_query="insert into account_detail(name, account_no, address, contact_no, total_balance) values(%s,%s,%s,%s,%s)"
     account_holder_data = (name, account_no, address, contact_no, total_balance)
     record_process.execute(account_holder_query, account_holder_data)
-
-    # Amount Table Data Insertions
-
-    amount_query="insert into amount (name, account_no, total_balance) values(%s,%s,%s)"
-    amount_data = (name, account_no, total_balance)
-    record_process.execute(amount_query,amount_data)
-
     my_database.commit()
-
-    record_process.execute("select * from account_detail")
-    data =record_process.fetchall()
-    t=PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
-    for name, account_no, address, contact_no, total_balance in data:
-        t.add_row([name, account_no, address, contact_no, total_balance])
-    print(t)
-
+    displayInformation()
     print("🚀 DATA ENTERED ! ACCOUNT OPENED 🚀")
 
 
@@ -64,29 +78,13 @@ def depositeAmount():
     name = input("Enter the Full Name of A/C Holder : ")
     account_no = input("Enter the A/C Number : ")
     deposite_amount=input("Enter the total Amount you want to Deposite : ")
-
     print("💰 Before Addition of Amount in the Account updated Table Details 💰")
-
-    record_process.execute("select * from account_detail")
-    data = record_process.fetchall()
-    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
-    for name, account_no, address, contact_no, total_balance in data:
-        t.add_row([name, account_no, address, contact_no, total_balance])
-    print(t)
-
+    displayInformation()
     record_process.execute("update account_detail set total_balance=total_balance+"+str(deposite_amount)+' where account_no = '+str(account_no)+';')
     my_database.commit()
-
     print("💵 Success 💶 💷  Amount Deposited 💰\n")
-
     print("💰 After Addition of Amount in the Account updated Table Details 💰")
-
-    record_process.execute("select * from account_detail")
-    data = record_process.fetchall()
-    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
-    for name, account_no, address, contact_no, total_balance in data:
-        t.add_row([name, account_no, address, contact_no, total_balance])
-    print(t)
+    displayInformation()
 
 
 
@@ -96,29 +94,13 @@ def withdrawAmount():
     name = input("Enter the Full Name of A/C Holder : ")
     account_no = input("Enter the A/C Number : ")
     withdrawn_amount = input("Enter the total Amount you want to WithDrawn : ")
-
     print("💰 Before WithDrawn of Amount in the Account updated Table Details 💰")
-
-    record_process.execute("select * from account_detail")
-    data = record_process.fetchall()
-    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
-    for name, account_no, address, contact_no, total_balance in data:
-        t.add_row([name, account_no, address, contact_no, total_balance])
-    print(t)
-
+    displayInformation()
     record_process.execute("update account_detail set total_balance=total_balance-" + str(withdrawn_amount) + ' where account_no = ' + str(account_no) + ';')
     my_database.commit()
-
     print("💵 Success 💶 💷  Amount WithDrawn 💰\n")
-
     print("💰 After  WithDrawn of Amount in the Account updated Table Details 💰")
-
-    record_process.execute("select * from account_detail")
-    data = record_process.fetchall()
-    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
-    for name, account_no, address, contact_no, total_balance in data:
-        t.add_row([name, account_no, address, contact_no, total_balance])
-    print(t)
+    displayInformation()
 
 # Balance Enquiry Function
 def balanceEnquiry():
@@ -133,16 +115,52 @@ def balanceEnquiry():
 
 # Customer Details Function
 def customerDetails():
-    return
+    account_no = input("Enter the A/C Number : ")
+    record_process.execute("select * from account_detail where account_no=" + str(account_no))
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
+
 # Information Update Function
 def informationUpdate():
-    return
+    account_no = input("Enter the A/C Number : ")
+    while True:
+        print("\t1: 🚀 UPDATE CONTACT NUMBER\t\n")
+        print("\t2: 🚀 UPDATE ADDRESS\t\n")
+        options=int(input("\t\tEnter your choice ➡️< 1 / 2 >  ⬅️for Updation!\t\t\n"))
+        if options==1:
+            Update_Contact_Number(account_no)
+        elif options==2:
+            Update_Address(account_no)
+        else:
+            print("Total Balance and Account Number is in Restricted Mode ! It can't be Updated")
+            break
+
+
+
+
 # Dispaly Information Function
 def displayInformation():
-    return
+    record_process.execute("select * from account_detail")
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
+
 # Closing of Account
 def closeAccount():
-    return
+    print("\t\t 🚀 Account Details Table : Before Closing of Account 🚀 \t\t")
+    displayInformation()
+    name = input("Enter the Full Name of A/C Holder : ")
+    account_no = input("Enter the A/C Number : ")
+    record_process.execute("delete from account_detail where account_no="+str(account_no))
+    my_database.commit()
+    print("\t\t 🚀 Account Details Table : After Closing of Account 🚀 \t\t")
+    displayInformation()
+
 
 
 
