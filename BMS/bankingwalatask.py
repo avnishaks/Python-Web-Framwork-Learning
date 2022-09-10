@@ -14,10 +14,10 @@ record_process.execute("create database if not exists my_database")
 record_process.execute("use my_database")
 
 # Creating of Sign Up Table if earlier not existed !
-record_process.execute("create table if not exists SignUp(username varchar(30),password varchar(30))")
+record_process.execute("create table if not exists SignUp(username varchar(255),password varchar(255))")
 
 # Creating of Account - Details Table for the Account Holder !
-record_process.execute("create table if not exists account_detail(name varchar(30),account_no varchar(30),address varchar(30),contact_no varchar(30),total_balance varchar(30))")
+record_process.execute("create table if not exists account_detail(name varchar(255),account_no varchar(255),address varchar(255),contact_no varchar(255),total_balance varchar(255))")
 
 #display PreetyTable
 def displayPreetyTable():
@@ -40,17 +40,6 @@ def Update_Contact_Number(account_no):
     print("🏝️After  Updating the Contact Number  🏝️")
     displayPreetyTable()
 
-# Update Address
-def Update_Address(account_no):
-    address_update = input("Enter the Updated Permanent Address of the A/C Holder : ")
-    print("🏝️ Before Updating the Address  🏝️")
-    record_process.execute("select * from account_detail where account_no=" + str(account_no))
-    displayPreetyTable()
-    record_process.execute("update account_detail set address=" + address_update + ' where account_no = '+str(account_no)+';')
-    my_database.commit()
-    record_process.execute("select * from account_detail where account_no=" + str(account_no))
-    print("🏝️After  Updating the Address  🏝️")
-    displayPreetyTable()
 
 # Open Account Function
 def openAccount():
@@ -128,14 +117,12 @@ def informationUpdate():
     account_no = input("Enter the A/C Number : ")
     while True:
         print("\t1: 🚀 UPDATE CONTACT NUMBER\t\n")
-        print("\t2: 🚀 UPDATE ADDRESS\t\n")
+        print("\t2: 🚀 UPDATE ADDRESS, NAME , TB , ACCOUNT NUMBER \t\n")
         options=int(input("\t\tEnter your choice ➡️< 1 / 2 >  ⬅️for Updation!\t\t\n"))
         if options==1:
             Update_Contact_Number(account_no)
-        elif options==2:
-            Update_Address(account_no)
         else:
-            print("Total Balance and Account Number is in Restricted Mode ! It can't be Updated")
+            print("Address , Name , Total Balance and Account Number is in Restricted Mode ! It can't be Updated")
             break
 
 
