@@ -42,6 +42,7 @@ def closeAccount():
 
 # For the New User Sign Up Function
 def SignUp():
+    print("WELCOME TO ! 🛴 SIGN-UP PAGE  🛴")
     user_name=input("UserName : ")
     pass_word=input("Password : ")
 
@@ -60,7 +61,7 @@ def SignUp():
         temp_pass.append(get_pass[i][0])
 
     if (user_name in temp_user) or (pass_word in temp_pass):
-        print("!!💥HELLO HELLO ! PLEASE WAIT 💥!! 🚀DATA MATCHED ! PLEASE DIRECTLY LOGIN🚀")
+        print("\t\t⚠️!!💥HELLO HELLO ! PLEASE WAIT 💥!! 🚀DATA MATCHED ! LOOK-LIKE YOU HAVE ALREDY SIGN-UP , PLEASE LOG-IN DIRECTLY 🚀 ⚠️\t\t\n")
         LogIn()
         return
 
@@ -70,7 +71,7 @@ def SignUp():
     val=(user_name,pass_word)
     record_process.execute(sql,val)
     my_database.commit()
-    print("Sign Up ! SuccessFull \n")
+    print("Sign Up ! Completed 🚀🏝️🚀 \n")
     print("Please ! Now Log in to your Account with Username and Password")
     LogIn()
 
@@ -97,7 +98,7 @@ def LogIn():
     # If the User have entered the code by mistaken , then it provide user the option to Retry the Option
         flag=1
         while True:
-            f=int(input("Press 1 for Again Try To Login: "))
+            f=int(input("🔂 Press 1 🔂 for Again Try To Login: "))
             if f==1:
                 LogIn()
             else:
@@ -114,7 +115,8 @@ def LogIn():
             print("\t6: 🚀 INFORMATION UPDATE\t\n")
             print("\t7: 🚀 DISPLAY INFORMATION\t\n")
             print("\t8: 🚀 CLOSE ACCOUNT\t\n")
-            print("\n\n\t !!WARNING!!🏝️ Please Enter the Numerical Number From ➡️1-8   ⬅️ as Per Choice.🏝️!\t")
+            print("\n\n\t\t !!WARNING!!🏝️ Please Enter the Numerical Number From ➡️1-8   ⬅️ as Per Choice.🏝️!\t\t\n")
+            print("\t\t⚠️!PRESS!  ⚠️ANY NUMBER ➡️< 0 or 9 >   ⬅️TO EXIT FROM  🏧 Banking Service 🏧\t\t\n ")
             choice=int(input("! Enter the Choice of the Service which you Want !"))
             if choice==1:
                 openAccount()
