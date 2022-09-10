@@ -17,10 +17,10 @@ record_process.execute("use my_database")
 record_process.execute("create table if not exists SignUp(username varchar(30),password varchar(30))")
 
 # Creating of Account - Details Table for the Account Holder !
-record_process.execute("create table if not exists account_detail(name varchar(30),account_no varchar(30),address varchar(30),contact_no varchar(30),total_balance int)")
+record_process.execute("create table if not exists account_detail(name varchar(30),account_no varchar(30),address varchar(30),contact_no varchar(30),total_balance varchar(30))")
 
 # Creating of Amount Table for the Account Holder !
-record_process.execute("create table if not exists amount(name varchar(30),account_no varchar(30),total_balance int)")
+record_process.execute("create table if not exists amount(name varchar(30),account_no varchar(30),total_balance varchar(30))")
 
 
 # Open Account Function
@@ -29,11 +29,11 @@ def openAccount():
     account_no=input("Enter the A/C Number : ")
     address=input("Enter the Permanent Address of the A/C Holder : ")
     contact_no=input("Enter the Contact Number of A/C Holder : ")
-    total_balance=int(input("Enter the Opening Amount For Account ! Please Enter Above 5000 : "))
+    total_balance=input("Enter the Opening Amount For Account ! Please Enter Above 5000 : ")
 
-    while(total_balance<5000):
+    while(int(total_balance)<5000):
         print("\t\t ⚠️You have Entered Amount Less than 5000 ! Please enter > 5000⚠️\t\t")
-        total_balance=int(input("🔂 Amount must be greater than 5000 🔂 : "))
+        total_balance=input("🔂 Amount must be greater than 5000 🔂 : ")
 
     # Account Details Table Data insertions
 
@@ -63,28 +63,74 @@ def openAccount():
 def depositeAmount():
     name = input("Enter the Full Name of A/C Holder : ")
     account_no = input("Enter the A/C Number : ")
-    deposite_amount=int(input("Enter the total Amount you want to Deposite"))
+    deposite_amount=input("Enter the total Amount you want to Deposite : ")
 
-    record_process.execute("update account_detail set total_balance=total_balance+"+deposite_amount+'where account_no='+account_no+'')
-    my_database.commit()
-    '''
-      record_process.execute("select total_balance from account_detail where account_no="+str(account_no))
-    data=record_process.fetchall()
-    t=PrettyTable(['total_balance'])
-    for total_balance in data:
-        t.add_row([total_balance])
-    print("Amount Deposited SuccessFully\n")
+    print("💰 Before Addition of Amount in the Account updated Table Details 💰")
+
+    record_process.execute("select * from account_detail")
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
     print(t)
-    '''
-    print("Amount Deposited SuccessFully\n")
+
+    record_process.execute("update account_detail set total_balance=total_balance+"+str(deposite_amount)+' where account_no = '+str(account_no)+';')
+    my_database.commit()
+
+    print("💵 Success 💶 💷  Amount Deposited 💰\n")
+
+    print("💰 After Addition of Amount in the Account updated Table Details 💰")
+
+    record_process.execute("select * from account_detail")
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
+
+
 
 
 # Withdrwan Amount Function
 def withdrawAmount():
-    return
+    name = input("Enter the Full Name of A/C Holder : ")
+    account_no = input("Enter the A/C Number : ")
+    withdrawn_amount = input("Enter the total Amount you want to WithDrawn : ")
+
+    print("💰 Before WithDrawn of Amount in the Account updated Table Details 💰")
+
+    record_process.execute("select * from account_detail")
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
+
+    record_process.execute("update account_detail set total_balance=total_balance-" + str(withdrawn_amount) + ' where account_no = ' + str(account_no) + ';')
+    my_database.commit()
+
+    print("💵 Success 💶 💷  Amount WithDrawn 💰\n")
+
+    print("💰 After  WithDrawn of Amount in the Account updated Table Details 💰")
+
+    record_process.execute("select * from account_detail")
+    data = record_process.fetchall()
+    t = PrettyTable(['name', 'account_no', 'address', 'contact_no', 'total_balance'])
+    for name, account_no, address, contact_no, total_balance in data:
+        t.add_row([name, account_no, address, contact_no, total_balance])
+    print(t)
+
 # Balance Enquiry Function
 def balanceEnquiry():
-    return
+    account_no = input("Enter the A/C Number : ")
+    record_process.execute("select total_balance from account_detail where account_no="+str(account_no))
+    data=record_process.fetchall()
+    t=PrettyTable(['total_balance'])
+    for total_balance in data:
+        t.add_row([total_balance])
+    print(t)
+
+
 # Customer Details Function
 def customerDetails():
     return
